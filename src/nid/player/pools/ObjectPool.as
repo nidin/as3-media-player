@@ -22,6 +22,7 @@ package nid.player.pools
 		public static function freePoolObject(obj:PoolObject):void {
 			busyPool.splice(obj.index, 1);
 			obj.index = freePool.length;
+			obj.free = true;
 			freePool.push(obj);
 		}
 		public static function getPoolObject(type:String):PoolObject{
@@ -29,13 +30,16 @@ package nid.player.pools
 			for (var i:int = 0; i < freePool.length; i++) {
 				if (freePool[i].type == type) {
 					obj = freePool[i];
+					obj.free = false;
 					freePool.splice(i, 1);
 					obj.index = busyPool.length;
 					busyPool.push(obj);
 					return obj;
 				}
 			}
-			obj = new PoolObject(getDefinitionByName(type));
+			var c:Class = getDefinitionByName(type) as Class;
+			obj = new PoolObject(new c());
+			trace('[New PoolObject]' + type, obj.instance);
 			obj.index = busyPool.length;
 			busyPool.push(obj);
 			return obj;

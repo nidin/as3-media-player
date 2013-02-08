@@ -1,6 +1,8 @@
 package 
 {
 	import flash.display.Sprite;
+	import flash.display.StageAlign;
+	import flash.display.StageScaleMode;
 	import flash.events.Event;
 	import nid.player.MediaPlayer;
 	
@@ -21,10 +23,13 @@ package
 		{
 			removeEventListener(Event.ADDED_TO_STAGE, init);
 			// entry point
+			stage.align = StageAlign.TOP_LEFT;
+			stage.scaleMode = StageScaleMode.NO_SCALE;
 			
-			var player:MediaPlayer = new MediaPlayer();
+			var player:MediaPlayer = MediaPlayer.instance;
 			addChild(player);
 			player.play('mp3/Tujhe Bhula Diya.mp3');
+			//player.loadPlayList('mp3/playlist.xml');
 		}
 		
 	}

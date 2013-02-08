@@ -40,7 +40,7 @@ package nid.player.core
 			load(any);
 		}
 		
-		private function load(any:*):void {
+		public function load(any:*):void {
 			if (any is String) {
 				req = new URLRequest(any as String);
 				header = new ByteArray();
@@ -73,10 +73,6 @@ package nid.player.core
 				file = new MP3File();
 				reqType == 0?file.load(req):file.loadBytes(bytes);
 			}
-		}
-		private function onID3Ready(e:Event):void 
-		{
-			
 		}
 		public static function getType(any:*):String {
 			if (any is String) {
