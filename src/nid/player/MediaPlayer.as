@@ -1,13 +1,18 @@
 package nid.player 
 {
 	import flash.display.Sprite;
+	import flash.events.Event;
 	import flash.events.EventDispatcher;
 	import flash.events.TimerEvent;
 	import flash.utils.ByteArray;
 	import flash.utils.Timer;
+	import nid.player.core.AudioOutput;
 	import nid.player.core.files.PlaylistFile;
 	import nid.player.core.MediaFile;
+	import nid.player.events.PlayerEvent;
+	import nid.player.plugins.Equalizer;
 	import nid.player.plugins.IPlugin;
+	import nid.player.plugins.Synthesizer;
 	
 	/**
 	 * ...
@@ -37,16 +42,33 @@ package nid.player
 			ui 			= new UserInterface();
 			notifier 	= new EventDispatcher();
 			plugins 	= new Vector.<IPlugin>();
+			plugins.push(new Equalizer());
+			plugins.push(new Synthesizer());
+			
 			timer 		= new Timer(1000);
 			timer.addEventListener(TimerEvent.TIMER, updateTime);
+			addEventListener(Event.ADDED_TO_STAGE, init);
 			
+			notifier.addEventListener(PlayerEvent.START, startTimer);
+			
+		}
+		
+		private function startTimer(e:PlayerEvent):void 
+		{
+			timer.start();
+		}
+		private function updateTime(e:TimerEvent):void 
+		{
+			ui.consoleView.updateTime(mediafile.position);
+		}
+		
+		private function init(e:Event):void 
+		{
+			removeEventListener(Event.ADDED_TO_STAGE, init);
+			addChild(ui);
 			ui.init();
 		}
 		
-		private function updateTime(e:TimerEvent):void 
-		{
-			
-		}
 		
 		public function play(any:*):void 
 		{

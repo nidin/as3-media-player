@@ -1,6 +1,7 @@
 package nid.player.view 
 {
 	import flash.display.Sprite;
+	import nid.player.utils.TimeUtils;
 	
 	/**
 	 * ...
@@ -10,9 +11,17 @@ package nid.player.view
 	{
 		public function get id():uint { return ViewList.MASTER_CONSOLE_VIEW; }
 		
+		private var displayPanel:DisplayPanel;
+		
 		public function MasterConsoleView() 
 		{
-			
+			displayPanel = new DisplayPanel();
+			addChild(displayPanel);
+		}
+		
+		public function updateTime(t:Number):void 
+		{
+			displayPanel.time.played.text = TimeUtils.getTimeFormat(t);
 		}
 		
 	}

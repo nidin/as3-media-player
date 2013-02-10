@@ -8,7 +8,7 @@ package nid.player.core.files
 	 * @author Nidin P Vinayakan
 	 */
 	public interface IFile 
-	{		
+	{
 		function load(req:URLRequest):void;		
 		function loadBytes(bytes:ByteArray):void;
 	}

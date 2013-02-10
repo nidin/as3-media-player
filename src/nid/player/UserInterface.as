@@ -15,11 +15,13 @@ package nid.player
 	public class UserInterface extends Sprite 
 	{
 		private var viewStack:Vector.<IView>;
+		internal var consoleView:MasterConsoleView;
 		
 		public function UserInterface() 
 		{
+			consoleView = new MasterConsoleView();
 			viewStack = new Vector.<IView>();
-			viewStack.push(new MasterConsoleView())
+			viewStack.push(consoleView)
 			viewStack.push(new PlaylistView())
 		}
 		public function getView(id:uint):IView {

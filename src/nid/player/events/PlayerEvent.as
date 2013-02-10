@@ -14,6 +14,7 @@ package nid.player.events
 		public static const FINISH:String = "finish"
 		public static const NEXT:String = "next"
 		public static const PREVIOUS:String = "previous"
+		static public const START:String = "start";
 		
 		public var data:Object;
 		

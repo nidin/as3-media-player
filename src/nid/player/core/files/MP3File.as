@@ -7,6 +7,8 @@ package nid.player.core.files
 	import flash.net.URLRequest;
 	import flash.utils.ByteArray;
 	import nid.player.core.AudioOutput;
+	import nid.player.events.PlayerEvent;
+	import nid.player.MediaPlayer;
 	import nid.player.pools.ObjectPool;
 	import nid.player.pools.PoolObject;
 	/**
@@ -28,6 +30,7 @@ package nid.player.core.files
 			}
 			sound.load(req);
 			AudioOutput.instance.channel = sound.play();
+			MediaPlayer.instance.notifier.dispatchEvent(new PlayerEvent(PlayerEvent.START));
 		}
 		
 		private function onSoundComplete(e:Event):void 

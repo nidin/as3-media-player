@@ -34,6 +34,9 @@ package nid.player.core
 		
 		public var id:String;
 		public var type:String;
+		public function get position():Number {
+			return AudioOutput.instance.channel == null?0:AudioOutput.instance.channel.position;
+		}
 		
 		public function MediaFile(any:*= null) {
 			if (any != null)
