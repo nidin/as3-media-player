@@ -24,6 +24,12 @@ package nid.player
 			viewStack.push(consoleView)
 			viewStack.push(new PlaylistView())
 		}
+		public function addView(view:IView):IView {
+			if (view == null) return null;
+			viewStack.push(view);
+			addChild(DisplayObject(view));
+			return view;
+		}
 		public function getView(id:uint):IView {
 			for (var i:int = 0; i < viewStack.length; i++) {
 				if (viewStack[i].id == id) return viewStack[i];

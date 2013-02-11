@@ -11,6 +11,9 @@ package nid.player.core.files
 	{
 		function load(req:URLRequest):void;		
 		function loadBytes(bytes:ByteArray):void;
+		
+		function get info():Object;
+		function get duration():Number;
 	}
 	
 }

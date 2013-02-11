@@ -17,20 +17,9 @@ package nid.player.utils
 		public static function getTimeFormat(t:Number):String
 		{
 			var s:String = "";
-			t = t / 1000;
-			var sec:Number = Math.round(t % 60);
-			t = t / 60;
-			var min:Number = Math.round(t % 60);
-			//var hr:Number = min / HOUR_CONST;
-			trace(sec, min);
-			//if (hr > 1) {
-				//
-			//}else if (min > 1) {
-				//
-				//s = "00:" + sec > 9 ? sec:"0" + sec;
-			//}else {
-				//s = "00:" + sec > 9 ? sec:"0" + sec;
-			//}
+			var sec:Number = Math.floor(t / 1000);
+			var min:Number = Math.floor(sec / 60);
+			sec %= 60;
 			s = (min > 9 ? min : "0" + min) +":" + (sec > 9?sec:"0" + sec);
 			return s;
 		}

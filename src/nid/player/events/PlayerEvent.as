@@ -15,6 +15,8 @@ package nid.player.events
 		public static const NEXT:String = "next"
 		public static const PREVIOUS:String = "previous"
 		static public const START:String = "start";
+		static public const ID3_READY:String = "id3Ready";
+		static public const DATA_READY:String = "dataReady";
 		
 		public var data:Object;
 		

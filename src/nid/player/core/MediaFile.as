@@ -34,6 +34,9 @@ package nid.player.core
 		
 		public var id:String;
 		public var type:String;
+		public function get sound():Sound { if (file is MP3File) return MP3File(file).sound else return null; }
+		public function get info():Object { return file.info; }
+		public function get duration():Number { return file.duration; }
 		public function get position():Number {
 			return AudioOutput.instance.channel == null?0:AudioOutput.instance.channel.position;
 		}

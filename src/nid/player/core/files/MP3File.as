@@ -17,20 +17,26 @@ package nid.player.core.files
 	 */
 	public class MP3File extends BaseFile implements IFile
 	{
-		private var sound:Sound;
+		private var _sound:Sound;
+		private var _info:Object;
+		
+		public function get sound():Sound {
+			return _sound;
+		}
 		
 		public function MP3File() 
 		{
 			
 		}
 		public function load(req:URLRequest):void {
-			if (sound == null) { 
-				sound = ObjectPool.getPoolObject(ObjectPool.SOUND).instance as Sound;
-				sound.addEventListener(Event.COMPLETE, onSoundComplete);
+			if (_sound == null) { 
+				_sound = ObjectPool.getPoolObject(ObjectPool.SOUND).instance as Sound;
+				_sound.addEventListener(Event.COMPLETE, onSoundComplete);
+				_sound.addEventListener(Event.ID3, onID3Ready);
 			}
-			sound.load(req);
-			AudioOutput.instance.channel = sound.play();
-			MediaPlayer.instance.notifier.dispatchEvent(new PlayerEvent(PlayerEvent.START));
+			_sound.load(req);
+			AudioOutput.instance.channel = _sound.play();
+			MediaPlayer.getInstance().notifier.dispatchEvent(new PlayerEvent(PlayerEvent.START));
 		}
 		
 		private function onSoundComplete(e:Event):void 
@@ -41,14 +47,28 @@ package nid.player.core.files
 		public function loadBytes(bytes:ByteArray):void {
 			
 		}
-		
+		/**
+		 * Properties
+		 */
+		public function get info():Object {
+			if (_info == null) {
+				_info = { title:_sound.id3.songName, artist:_sound.id3.artist, album:_sound.id3.album };
+			}
+			return _info;
+		}
+		public function get duration():Number {
+			if (_sound != null) {
+				return _sound.length;
+			}
+			return -1;
+		}
 		/**
 		 * Event Handlers
 		 */
 		
 		private function onID3Ready(e:Event):void 
 		{
-			
+			MediaPlayer.getInstance().notifier.dispatchEvent(new PlayerEvent(PlayerEvent.ID3_READY));
 		}
 	}
 }

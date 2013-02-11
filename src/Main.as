@@ -26,7 +26,7 @@ package
 			stage.align = StageAlign.TOP_LEFT;
 			stage.scaleMode = StageScaleMode.NO_SCALE;
 			
-			var player:MediaPlayer = MediaPlayer.instance;
+			var player:MediaPlayer = MediaPlayer.getInstance();
 			addChild(player);
 			player.play('mp3/Tujhe Bhula Diya.mp3');
 			//player.loadPlayList('mp3/playlist.xml');
